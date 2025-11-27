@@ -1,0 +1,15 @@
+:root {
+  --ink-black: #0b2027;
+  --cerulean: #40798c;
+  --tropical-teal: #70a9a1;
+  --ash-grey: #cfd7c7;
+  --cornsilk: #f6f1d1;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ink-black);
+  overflow-x: hidden;
+  min-height: 100%;
+}

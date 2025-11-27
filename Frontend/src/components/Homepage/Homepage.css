@@ -1,0 +1,150 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--ink-black);
+  gap: 2rem;
+}
+
+.clock-title {
+  color: var(--cornsilk);
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.clock-slogan {
+  color: var(--ash-grey);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: lowercase;
+  font-style: italic;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clock-slogan:hover {
+  color: var(--cornsilk);
+  opacity: 1;
+}
+
+.clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Override flip clock CSS variables */
+  --fcc-background: var(--ink-black);
+  --fcc-digit-color: var(--cornsilk);
+  --fcc-digit-block-radius: 10px;
+  --fcc-divider-color: transparent;
+  --fcc-divider-height: 0px;
+  --fcc-label-color: var(--ash-grey);
+  --fcc-separator-color: var(--ash-grey);
+  --fcc-shadow: none;
+}
+
+/* Remove the horizontal divider line in the middle of digits */
+.clock-container [class*="_SKh-V"],
+.clock-container [class*="_1GZQ7"] {
+  border-bottom: none !important;
+}
+
+/* Remove any borders from labels */
+.clock-container [class*="_2aOn7"] {
+  border: none !important;
+}
+
+/* Footer */
+.homepage-footer {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links span {
+  color: var(--ash-grey);
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.footer-links span:not(.footer-divider):hover {
+  color: var(--cornsilk);
+  opacity: 1;
+}
+
+.footer-divider {
+  cursor: default !important;
+}
+
+.footer-credit {
+  color: var(--ash-grey);
+  font-size: 0.75rem;
+  margin: 0;
+  opacity: 0.5;
+}
+
+.footer-notification {
+  color: var(--tropical-teal);
+  font-size: 0.7rem;
+  margin: 0;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .homepage {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .clock-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .clock-slogan {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage {
+    gap: 1rem;
+  }
+
+  .clock-title {
+    font-size: 1.2rem;
+  }
+
+  .clock-slogan {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  /* Scale down flip clock on small screens */
+  .clock-container {
+    transform: scale(0.7);
+  }
+}

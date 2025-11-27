@@ -1,0 +1,459 @@
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--ink-black);
+  gap: 2.5rem;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Error notification */
+.error-notification {
+  position: fixed;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #e76f51, #d62828);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(231, 111, 81, 0.4);
+  transition: top 0.4s ease;
+  z-index: 1000;
+}
+
+.error-notification.show {
+  top: 20px;
+}
+
+.pomodoro-title {
+  color: var(--cornsilk);
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.pomodoro-clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Override flip clock CSS variables */
+  --fcc-background: var(--ink-black);
+  --fcc-digit-color: var(--cornsilk);
+  --fcc-digit-block-radius: 10px;
+  --fcc-divider-color: transparent;
+  --fcc-divider-height: 0px;
+  --fcc-label-color: var(--ash-grey);
+  --fcc-separator-color: var(--ash-grey);
+  --fcc-shadow: none;
+}
+
+/* Static clock display (when not running) */
+.static-clock-display {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.digit-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 4px;
+}
+
+.digit-block {
+  width: 60px;
+  height: 85px;
+  background: var(--ink-black);
+  border: 2px solid #f4a261;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--cornsilk);
+  box-shadow: 0 0 12px rgba(244, 162, 97, 0.3), 0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Edit mode - different outline to grab attention */
+.static-clock.editing .digit-group {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(112, 169, 161, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(112, 169, 161, 0.8));
+  }
+}
+
+/* Input styling for edit mode */
+.digit-input {
+  width: 124px;
+  height: 85px;
+  background: var(--ink-black);
+  border: 3px solid var(--tropical-teal);
+  border-radius: 10px;
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--cornsilk);
+  text-align: center;
+  box-shadow: 0 0 20px rgba(112, 169, 161, 0.4), 0 8px 25px rgba(0, 0, 0, 0.4);
+  outline: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.digit-input::-webkit-outer-spin-button,
+.digit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.digit-input:focus {
+  border-color: var(--cornsilk);
+  box-shadow: 0 0 25px rgba(246, 241, 209, 0.5), 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.digit-label {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ash-grey);
+  letter-spacing: 1px;
+}
+
+.separator {
+  font-size: 48px;
+  color: var(--ash-grey);
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  height: 85px;
+}
+
+/* Buttons */
+.pomodoro-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.pomodoro-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  color: var(--ink-black);
+  box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(244, 162, 97, 0.5);
+}
+
+.edit-btn {
+  background: transparent;
+  color: var(--ash-grey);
+  border: 2px solid var(--ash-grey);
+}
+
+.edit-btn:hover {
+  background: var(--ash-grey);
+  color: var(--ink-black);
+}
+
+.edit-btn.active {
+  background: var(--tropical-teal);
+  color: var(--ink-black);
+  border-color: var(--tropical-teal);
+}
+
+.preset-btn {
+  background: transparent;
+  color: var(--tropical-teal);
+  border: 2px solid var(--tropical-teal);
+}
+
+.preset-btn:hover {
+  background: var(--tropical-teal);
+  color: var(--ink-black);
+}
+
+/* Stop timer text */
+.stop-timer-text {
+  color: var(--ash-grey);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+.stop-timer-text:hover {
+  color: #e76f51;
+  opacity: 1;
+}
+
+/* Back to homepage text */
+.back-home-text {
+  color: var(--ash-grey);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.back-home-text:hover {
+  color: var(--cornsilk);
+  opacity: 1;
+}
+
+/* Break options */
+.break-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.break-title {
+  color: var(--cornsilk);
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.break-subtitle {
+  color: var(--ash-grey);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.break-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.break-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--tropical-teal);
+  color: var(--ink-black);
+  box-shadow: 0 4px 15px rgba(112, 169, 161, 0.4);
+}
+
+.break-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(112, 169, 161, 0.5);
+}
+
+.skip-break {
+  color: var(--ash-grey);
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.skip-break:hover {
+  color: var(--cornsilk);
+  opacity: 1;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .pomodoro {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .pomodoro-title {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .digit-block {
+    width: 45px;
+    height: 65px;
+    font-size: 36px;
+  }
+
+  .digit-input {
+    width: 94px;
+    height: 65px;
+    font-size: 36px;
+  }
+
+  .separator {
+    font-size: 36px;
+    height: 65px;
+  }
+
+  .digit-label {
+    font-size: 8px;
+    bottom: -20px;
+  }
+
+  .pomodoro-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .break-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .break-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .break-title {
+    font-size: 1.6rem;
+  }
+
+  .pomodoro-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .error-notification {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pomodoro {
+    gap: 1rem;
+  }
+
+  .pomodoro-title {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+
+  .digit-block {
+    width: 35px;
+    height: 50px;
+    font-size: 28px;
+    border-radius: 6px;
+  }
+
+  .digit-input {
+    width: 74px;
+    height: 50px;
+    font-size: 28px;
+    border-radius: 6px;
+  }
+
+  .separator {
+    font-size: 28px;
+    height: 50px;
+    padding: 0 2px;
+  }
+
+  .static-clock-display {
+    gap: 4px;
+  }
+
+  .digit-group {
+    gap: 2px;
+  }
+
+  .digit-label {
+    font-size: 7px;
+    bottom: -16px;
+    letter-spacing: 0.5px;
+  }
+
+  .pomodoro-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .error-notification {
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    width: 90%;
+    text-align: center;
+  }
+
+  .back-home-text {
+    font-size: 0.75rem;
+  }
+
+  .stop-timer-text {
+    font-size: 0.8rem;
+  }
+
+  .break-title {
+    font-size: 1.4rem;
+  }
+
+  .break-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .break-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Scale down flip clock on very small screens */
+  .pomodoro-clock-container {
+    transform: scale(0.85);
+  }
+}
