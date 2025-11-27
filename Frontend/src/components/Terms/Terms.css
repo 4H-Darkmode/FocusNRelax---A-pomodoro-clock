@@ -30,14 +30,14 @@
 
 .terms-section h2 {
   color: #f4a261;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
 }
 
 .terms-section p {
   color: var(--ash-grey);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   margin: 0;
   opacity: 0.9;

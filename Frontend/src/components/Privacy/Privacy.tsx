@@ -66,7 +66,26 @@ const Privacy = () => {
             <h2>7. Contact</h2>
             <p>
               If you have any questions about this Privacy Policy, feel free to 
-              reach out to the developer.
+              reach out to the developer by email: kakhikp07@gmail.com
+            </p>
+          </section>
+
+          <section className="privacy-section">
+            <h2>8. Web Analytics</h2>
+            <p>
+              We use <a href="https://developers.cloudflare.com/web-analytics/" target="_blank" rel="noopener noreferrer">Cloudflare Web Analytics</a> to collect aggregated and anonymous data about how visitors interact with our site, such as page views, browser types, and general location data. This helps us improve the website experience.
+            </p>
+            <p>
+              Cloudflare Web Analytics is designed with privacy in mind:
+            </p>
+            <ul>
+              <li>It does <strong>not</strong> use cookies or local storage.</li>
+              <li>It does <strong>not</strong> track users across different websites.</li>
+              <li>It does <strong>not</strong> collect or store any personal data, including full IP addresses or any unique user identifiers.</li>
+              <li>Data collected is aggregated, meaning individual visitors cannot be identified.</li>
+            </ul>
+            <p>
+              For more detailed information on how Cloudflare protects your privacy, please see their <a href="https://developers.cloudflare.com/web-analytics/" target="_blank" rel="noopener noreferrer">Cloudflare Web Analytics documentation</a> and their <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
             </p>
           </section>
         </div>

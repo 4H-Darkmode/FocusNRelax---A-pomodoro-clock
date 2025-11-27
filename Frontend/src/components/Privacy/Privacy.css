@@ -30,17 +30,49 @@
 
 .privacy-section h2 {
   color: #f4a261;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
 }
 
 .privacy-section p {
   color: var(--ash-grey);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   margin: 0;
   opacity: 0.9;
+}
+
+.privacy-section p + p {
+  margin-top: 0.75rem;
+}
+
+.privacy-section ul {
+  color: var(--ash-grey);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  opacity: 0.9;
+}
+
+.privacy-section li {
+  margin-bottom: 0.5rem;
+}
+
+.privacy-section li strong {
+  color: var(--cornsilk);
+}
+
+.privacy-section a {
+  color: var(--tropical-teal);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.privacy-section a:hover {
+  color: var(--cornsilk);
+  text-decoration: underline;
 }
 
 .back-link {
