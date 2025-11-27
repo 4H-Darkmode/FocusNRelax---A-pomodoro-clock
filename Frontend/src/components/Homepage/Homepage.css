@@ -3,9 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   background-color: var(--ink-black);
   gap: 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .clock-title {
@@ -104,7 +107,7 @@
 
 .footer-notification {
   color: var(--tropical-teal);
-  font-size: 0.7rem;
+  font-size: 1rem;
   margin: 0;
   opacity: 0.7;
   font-style: italic;
@@ -127,6 +130,12 @@
     font-size: 1rem;
     letter-spacing: 2px;
   }
+
+  .footer-notification {
+    font-size: 0.85rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -146,5 +155,23 @@
   /* Scale down flip clock on small screens */
   .clock-container {
     transform: scale(0.7);
+  }
+
+  .homepage-footer {
+    bottom: 10px;
+    gap: 0.3rem;
+  }
+
+  .footer-links span {
+    font-size: 0.7rem;
+  }
+
+  .footer-credit {
+    font-size: 0.65rem;
+  }
+
+  .footer-notification {
+    font-size: 0.7rem;
+    padding: 0 0.5rem;
   }
 }
